@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdaanAlert - AI-Powered Flight Price Alerts for India</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .urgency-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 5px 5px 5px 0;
+        }
+
+        .urgency-high {
+            background: #fee;
+            color: #c00;
+        }
+
+        .urgency-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .urgency-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .result-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .result-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .insight {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feature h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✈️ UdaanAlert</h1>
+            <p>AI-Powered Flight Price Alerts for Indian Travelers</p>
+        </div>
+
+        <div class="card">
+            <form id="alertForm">
+                <div class="form-group">
+                    <label for="from">From (Departure City)</label>
+                    <select id="from" required>
+                        <option value="">Select departure city</option>
+                        <option value="DEL">Delhi (DEL)</option>
+                        <option value="BOM">Mumbai (BOM)</option>
+                        <option value="BLR">Bangalore (BLR)</option>
+                        <option value="MAA">Chennai (MAA)</option>
+                        <option value="HYD">Hyderabad (HYD)</option>
+                        <option value="CCU">Kolkata (CCU)</option>
+                        <option value="GOI">Goa (GOI)</option>
+                        <option value="AMD">Ahmedabad (AMD)</option>
+                        <option value="PNQ">Pune (PNQ)</option>
+                        <option value="COK">Kochi (COK)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="to">To (Arrival City)</label>
+                    <select id="to" required>
+                        <option value="">Select arrival city</option>
+                        <option value="DEL">Delhi (DEL)</option>
+                        <option value="BOM">Mumbai (BOM)</option>
+                        <option value="BLR">Bangalore (BLR)</option>
+                        <option value="MAA">Chennai (MAA)</option>
+                        <option value="HYD">Hyderabad (HYD)</option>
+                        <option value="CCU">Kolkata (CCU)</option>
+                        <option value="GOI">Goa (GOI)</option>
+                        <option value="AMD">Ahmedabad (AMD)</option>
+                        <option value="PNQ">Pune (PNQ)</option>
+                        <option value="COK">Kochi (COK)</option>
+                        <option value="DXB">Dubai (DXB)</option>
+                        <option value="SIN">Singapore (SIN)</option>
+                        <option value="LHR">London (LHR)</option>
+                        <option value="JFK">New York (JFK)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Travel Date</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number (Optional)</label>
+                    <input type="tel" id="phone" placeholder="+91 98765 43210">
+                </div>
+
+                <button type="submit" class="btn">Set Up Alert 🔔</button>
+            </form>
+
+            <div id="result" style="display: none;">
+                <div class="result-section">
+                    <h3>🎯 Your Alert is Set!</h3>
+                    <div class="alert alert-success">
+                        ✅ You'll receive AI-powered alerts with urgency scores and booking insights!
+                    </div>
+
+                    <div class="insight">
+                        <h4>📊 Current Price Estimate:</h4>
+                        <p class="price" id="estimatedPrice">₹0</p>
+                    </div>
+
+                    <div class="insight">
+                        <h4>🤖 AI Urgency Score:</h4>
+                        <div id="urgencyScore"></div>
+                    </div>
+
+                    <div class="insight">
+                        <h4>💡 Why Book Now?</h4>
+                        <ul id="insights" style="margin-left: 20px; margin-top: 10px;"></ul>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>✨ What You'll Get:</h3>
+                    <div class="features">
+                        <div class="feature">
+                            <h4>📈 Price Tracking</h4>
+                            <p>Real-time monitoring of flight prices</p>
+                        </div>
+                        <div class="feature">
+                            <h4>🎯 Urgency Scores</h4>
+                            <p>AI-calculated urgency ratings</p>
+                        </div>
+                        <div class="feature">
+                            <h4>💡 Smart Insights</h4>
+                            <p>Personalized booking recommendations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <h3 style="color: #667eea; margin-bottom: 15px;">Why Choose UdaanAlert?</h3>
+            <p style="color: #666; line-height: 1.6;">
+                Our AI analyzes thousands of flights daily, considers seasonal patterns, festivals, and demand trends specific to India. Get alerts that not only tell you prices but also WHY you should book now!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        document.getElementById('alertForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const date = document.getElementById('date').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            // Calculate estimated price (simulated)
+            const basePrice = 3000;
+            const distance = Math.random() * 10000 + 2000;
+            const seasonalMultiplier = 1 + (Math.random() * 0.5);
+            const estimatedPrice = Math.round(basePrice + (distance * seasonalMultiplier));
+
+            // Generate urgency score
+            const urgencyLevel = Math.random();
+            let urgencyClass, urgencyText, urgencyScore;
+            
+            if (urgencyLevel > 0.7) {
+                urgencyClass = 'urgency-high';
+                urgencyText = 'HIGH URGENCY';
+                urgencyScore = '8/10';
+            } else if (urgencyLevel > 0.4) {
+                urgencyClass = 'urgency-medium';
+                urgencyText = 'MODERATE URGENCY';
+                urgencyScore = '5/10';
+            } else {
+                urgencyClass = 'urgency-low';
+                urgencyText = 'LOW URGENCY';
+                urgencyScore = '3/10';
+            }
+
+            // Generate insights
+            const insights = [
+                'Prices typically rise 2 weeks before departure',
+                'Festival season approaching - demand increasing',
+                'Limited seats available at current price',
+                'Historical data shows prices 15% lower than average',
+                'Weekend travel - book early for best rates'
+            ];
+
+            const selectedInsights = insights.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+            // Display results
+            document.getElementById('estimatedPrice').textContent = '₹' + estimatedPrice.toLocaleString('en-IN');
+            document.getElementById('urgencyScore').innerHTML = `<span class="urgency-badge ${urgencyClass}">${urgencyText} - ${urgencyScore}</span>`;
+            
+            const insightsList = document.getElementById('insights');
+            insightsList.innerHTML = '';
+            selectedInsights.forEach(insight => {
+                const li = document.createElement('li');
+                li.textContent = insight;
+                li.style.marginBottom = '8px';
+                insightsList.appendChild(li);
+            });
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // In a real implementation, this would send data to a backend
+            console.log('Alert created:', { from, to, date, email, phone });
+        });
+    </script>
+</body>
+</html>
