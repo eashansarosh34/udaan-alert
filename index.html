@@ -259,6 +259,91 @@
             50% { transform: translateY(-20px); }
         }
 
+
+                /* How It Works Section */
+        .how-it-works {
+            min-height: 100vh;
+            padding: 100px 50px;
+            background: #000;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d4ff00;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 60px;
+            font-weight: 800;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-5px);
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.1);
+        }
+
+        .step-status {
+            font-size: 0.7rem;
+            color: #d4ff00;
+            letter-spacing: 1px;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            color: #d4ff00;
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .step-card p {
+            color: #999;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
         @media (max-width: 1024px) {
             .hero {
                 flex-direction: column;
@@ -350,6 +435,78 @@
             <div class="city-marker">JFK→LHR</div>
             <div class="city-marker">LAX→NRT</div>
             <div class="city-marker">SFO→CDG</div>
+        </div>
+    </section>
+
+        <!-- How It Works Section -->
+    <section id="how" class="how-it-works">
+        <div class="container">
+            <div class="section-badge">
+                <span class="badge-dot"></span>
+                PROCESS FLOW
+            </div>
+            
+            <h2 class="section-title">Four steps to<br><span class="highlight">cheaper flights.</span></h2>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">01</span>
+                        <span class="step-status">INPUT</span>
+                    </div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v10m0 0l5-5m-5 5l-5-5"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
+                    <h3>Set Your Route</h3>
+                    <p>Enter origin, destination, dates, and your target price. Our system activates tracking immediately.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">02</span>
+                        <span class="step-status">PROCESSING</span>
+                    </div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6M5.66 5.66l4.24 4.24m6 6l4.24 4.24M23 12h-6m-6 0H5m15.66 5.66l-4.24-4.24m-6-6L5.66 5.66"/>
+                        </svg>
+                    </div>
+                    <h3>AI Monitors 24/7</h3>
+                    <p>Price checks every 4 hours. Pattern analysis. Historical comparison. Trend prediction.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">03</span>
+                        <span class="step-status">ANALYZING</span>
+                    </div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <h3>Predict & Analyze</h3>
+                    <p>Machine learning determines if prices will drop, rise, or stabilize. Calculates optimal booking window.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">04</span>
+                        <span class="step-status">READY</span>
+                    </div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                    </div>
+                    <h3>Get Smart Alerts</h3>
+                    <p>Receive actionable alerts: 'Book now—this is the floor' or 'Wait—prices dropping 12% next week.'</p>
+                </div>
+            </div>
         </div>
     </section>
 
